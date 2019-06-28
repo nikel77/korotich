@@ -14,32 +14,33 @@ workers_list = [
 ]
 
 
-
-def csv_creator(input):
+def csv_creator(data):
     import csv
 
     with open('people.csv', 'w') as csvfile:
         filewriter = csv.writer(csvfile, delimiter=';')
-        filewriter.writerow(['name', 'age', 'gender', 'position'])
-        for row in input:
+        filewriter.writerow(data[0].keys())
+        for row in data:
             filewriter.writerow([row['name'], row['age'], row['gender'], row['position']])
-    managers_list = [row for row in input if 'Manager' in row['position']]
+    managers_list = [row for row in data if 'Manager' in row['position']]
     return managers_list
+
 
 print(csv_creator(workers_list))
 
 
-def csv_creator1(input):
+def csv_creator1(data):
     import csv
 
     with open('people.csv', 'w') as csvfile:
         filewriter = csv.writer(csvfile, delimiter=';')
         filewriter.writerow(['name', 'age', 'gender', 'position'])
         managers_list = []
-        for row in input:
+        for row in data:
             filewriter.writerow([row['name'], row['age'], row['gender'], row['position']])
             if 'Manager' in row['position']:
                 managers_list.append(row)
     return managers_list
+
 
 print(csv_creator1(workers_list))
