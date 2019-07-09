@@ -24,9 +24,7 @@ class TestCsvCreator(unittest.TestCase):
         csv_creator(workers_list)
         with open('people.csv', 'r') as csvfile:
             filereader = csv.reader(csvfile, delimiter=';')
-            for row in filereader:
-                self.assertEqual(row, expected_data)
-                break
+            self.assertEqual(list(filereader)[0], expected_data)
         os.remove('people.csv')
 
     def test_csv_column_quantity(self):
@@ -34,8 +32,7 @@ class TestCsvCreator(unittest.TestCase):
         with open('people.csv', 'r') as csvfile:
             filereader = csv.reader(csvfile, delimiter=';')
             for row in filereader:
-                if len(row) != 4:
-                    self.assertEqual(len(row), 4)
+                self.assertEqual(len(row), 4)
         os.remove('people.csv')
 
     def test_csv_full(self):
@@ -50,18 +47,9 @@ class TestCsvCreator(unittest.TestCase):
 
     def test_csv_managers_quantity(self):
         managers_list = csv_creator(workers_list)
-        result = 0
+        self.assertTrue(len(managers_list) == 5)
         for element in managers_list:
-            if 'Manager' in element['position']:
-                result += 1
-        self.assertEqual(result, 5)
-        os.remove('people.csv')
-
-    def test_csv_managers_quantity1(self):
-        managers_list = csv_creator(workers_list)
-        assert len(managers_list) == 5
-        for element in managers_list:
-            assert 'Manager' in element['position']
+            self.assertTrue(('Manager' in element['position']) is True)
         os.remove('people.csv')
 
 
