@@ -1,4 +1,9 @@
 .DS_Store
 debugger.xml
 .idea
-_mac
+/_mac
+colors.scheme.xml
+ide.general.xml
+/codestyles
+*.xml
+.gitignore
