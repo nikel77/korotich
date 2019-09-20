@@ -36,13 +36,13 @@ def emirp_range_check():
 
     for number in range(from_number, to_number + 1):
 
-        if prime_check(number) is True:
+        if prime_check(number):
             string = str(number)
             new_string = str(number)[::-1]
 
             if new_string != string:
 
-                if prime_check(int(new_string)) is True:
+                if prime_check(int(new_string)):
                     emirp_list.append(number)
 
     print(emirp_list)
