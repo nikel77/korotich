@@ -1,6 +1,6 @@
 body {
   font-family: 'Roboto', sans-serif;
-  background-image: url("/img/sky.jpg");
+  background-image: url("/static/sky.jpg");
   background-size: cover;
 }
 
@@ -88,7 +88,7 @@ section.container .row {
   display: flex;
   align-items: center;
   height: 600px;
-  background-image: url("img/self_portrait_cut.jpg");
+  background-image: url("/static/self_portrait_cut.jpg");
   background-size: cover;
   background-position: center;
 }
