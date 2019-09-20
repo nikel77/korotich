@@ -1,34 +1,28 @@
-"""Function 'emirp_check' checks if the input number is emirp"""
-"""Function 'emirp_range_check' returns all emirp numbers in given range"""
-"""Both of these functions use 'prime_check' function to check if the number
+"""Function 'emirp_check' checks if the input number is emirp
+Function 'emirp_range_check' returns all emirp numbers in given range
+Both of these functions use 'prime_check' function to check if the number
 prime or not"""
+
 
 def prime_check(number):
     for i in range(2, number):
         if number % i != 0:
             continue
         else:
-            return
-    return number
+            return False
+    return True
 
 
 def emirp_check():
     number = int(input('Input any number: '))
-    number = prime_check(number)
 
-    if number is not None:
+    if prime_check(number) is True:
         string = str(number)
-        new_string = string[::-1]
 
-        new_number = prime_check(int(new_string))
-
-        if new_number is not None:
+        if prime_check(int(string[::-1])) is True:
             print('The number {} is an emirp number'.format(number))
-        else:
-            print('{} is not an emirp number'.format(number))
-    else:
-        print('{} is not an emirp number'.format(number))
-
+            return
+    print('{} is not an emirp number'.format(number))
     return
 
 
@@ -39,19 +33,18 @@ def emirp_range_check():
     from_number = int(input('Input the first number of range: '))
     to_number = int(input('Input the last number of range: '))
     emirp_list = []
-    for number in range(from_number, to_number + 1):
-        number = prime_check(number)
 
-        if number is not None:
+    for number in range(from_number, to_number + 1):
+
+        if prime_check(number) is True:
             string = str(number)
-            new_number = None
-            new_string = string[::-1]
+            new_string = str(number)[::-1]
 
             if new_string != string:
-                new_number = prime_check(int(new_string))
 
-            if new_number is not None:
-                emirp_list.append(number)
+                if prime_check(int(new_string)) is True:
+                    emirp_list.append(number)
+
     print(emirp_list)
     return emirp_list
 
