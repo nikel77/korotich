@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<body>
+    <header class="container">
+        <div class="row">
+            <h1 class="col-sm-8">kutsenochka-art.com</h1>
+            <nav class="col-sm-4">
+                <a href="#"><p>About Me</p></a>
+                <a href="/"><p>Home</p></a>
+                <a href="/enrollment/"><p>Enrollment</p></a>
+                <a href="/login/"><p class="pill-white">Log In</p></a>
+                <a href="/logout/"><p class="pill-white">Log Out</p></a>
+            </nav>
+        </div>
+    </header>
+    <h3 id="request">Please fill in the form:</h3>
+    <div class="form" id="form">
+        <form action="/sign_up/" method="POST">
+            <input type="text" placeholder="First and Last Names" name="name" id="name">
+            <input type="text" placeholder="User Name" name="username" id="username">
+            <input type="email" placeholder="e-mail" name="email" id="email">
+            <input type="password" placeholder="password" name="password" id="password">
+            <input type="submit" value="Submit">
+        </form>
+        <h6 id="pass_req">Password requirements:</h6>
+        <ul id="pass_req_list">
+            <li>length from 5 to 10 symbols</li>
+            <li>no spaces</li>
+            <li>at least one digit</li>
+            <li>at least on special character</li>
+        </ul>
+    </div>
+</body>
+
+{% endblock %}

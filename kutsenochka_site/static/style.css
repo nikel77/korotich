@@ -4,7 +4,7 @@ body {
   background-size: cover;
 }
 
-ul {
+#bottom {
   list-style: none;
   display: flex;
   justify-content: flex-end;
@@ -25,9 +25,7 @@ figure {
     color: #2e6da4;
     color: #000000;
     text-align: center;
-    font-weight: 1000;
     font-size: 50px;
-
 
 }
 
@@ -72,12 +70,12 @@ header .row {
 }
 
 .col-sm-4 p {
-  margin: 25px 20px 15px;
+  margin: 30px 20px 10px;
   min-width: 60px;
   padding: 1px;
 }
 
-section.container .row {
+section.container.row {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -114,7 +112,104 @@ section.container .row {
   background-color: #FFFFFF;
 }
 
+.btn {
+  color: #2e6da4;
+  background-color: #FFFFFF;
+}
 .col-sm-1 img {
   min-width: 32px;
   min-height: 33px;
+}
+
+#request {
+  margin-top: 250px;
+  text-align: center;
+  }
+
+#form {
+  text-align: center;
+  margin-top: 70px;
+  margin-bottom: 400px;
+}
+
+#greating {
+  text-align: center;
+  font-family: 'Tangerine', sans-serif;
+  font-size: 60px;
+  margin-top: 30px;
+  margin-bottom: 80px;
+}
+
+#log {
+  font-size: 20px;
+}
+
+#log_inform {
+  text-align: left;
+  font-size: 20px;
+  font-family: sans-serif;
+  font-weight: 700;
+}
+
+#pass_req {
+  text-align: left;
+  font-size: 14px;
+  margin-left: 850px;
+}
+
+#pass_req_list {
+  text-align: left;
+  font-size: 14px;
+  margin-left: 825px;
+  list-style-type: circle;
+}
+
+#request_enrollment {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 270px;
+  font-size: 22px;
+  text-align: left;
+}
+
+#form_enrollment {
+  text-align: left;
+  margin-top: 0px;
+  margin-bottom: 70px;
+  margin-left: 270px;
+}
+
+
+
+label {
+  font-size: 20px;
+  font-weight: 300;
+}
+
+#no_classes {
+  margin-bottom: 300px;
+}
+
+#enrollment, #not_enrolled {
+  text-align: left;
+  font-family: 'Roboto', sans-serif;
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+#user_courses_names {
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  text-align: left;
+}
+
+#submit {
+  text-align: center;
+  margin-left: 160px;
+}
+
+#cancel {
+  font-family: 'Roboto', sans-serif;
+  text-align: left;
+  font-size: 14px;
 }
