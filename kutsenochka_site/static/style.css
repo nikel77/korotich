@@ -21,11 +21,11 @@ figure {
 }
 
 .col-sm-4 h3 {
-    font-family: 'Tangerine', sans-serif;
-    color: #2e6da4;
-    color: #000000;
-    text-align: center;
-    font-size: 50px;
+  font-family: 'Tangerine', sans-serif;
+  color: #2e6da4;
+  color: #000000;
+  text-align: center;
+  font-size: 50px;
 
 }
 
@@ -137,7 +137,7 @@ section.container.row {
   font-family: 'Tangerine', sans-serif;
   font-size: 60px;
   margin-top: 30px;
-  margin-bottom: 80px;
+  margin-bottom: 30px;
 }
 
 #log {
@@ -167,7 +167,7 @@ section.container.row {
 #request_enrollment {
   margin-top: 20px;
   margin-bottom: 20px;
-  margin-left: 270px;
+  margin-left: 0px;
   font-size: 22px;
   text-align: left;
 }
@@ -176,14 +176,12 @@ section.container.row {
   text-align: left;
   margin-top: 0px;
   margin-bottom: 70px;
-  margin-left: 270px;
+  margin-left: 0px;
 }
-
-
 
 label {
   font-size: 20px;
-  font-weight: 300;
+  font-weight: 300
 }
 
 #no_classes {
@@ -201,11 +199,14 @@ label {
   font-family: 'Roboto', sans-serif;
   font-size: 20px;
   text-align: left;
-}
+  margin-top: 6px;
+  margin-bottom: 5px;
+  }
 
 #submit {
-  text-align: center;
-  margin-left: 160px;
+  background-color: #EEEEEE;
+  margin-left: 200px;
+  border-radius: 4px;
 }
 
 #cancel {
@@ -213,3 +214,19 @@ label {
   text-align: left;
   font-size: 14px;
 }
+
+#btn, #btn3, #btn4 {
+    border-radius: 4px;
+    background-color: #EEEEEE;
+    color: #000000;
+    font: inherit;
+    padding: 1px 7px 2px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(216, 216, 216) rgb(209, 209, 209) rgb(186, 186, 186);
+    border-image: initial;
+    margin-top: 4px;
+    margin-left: 0px;
+    padding: 1px 18px 2px;
+}
+

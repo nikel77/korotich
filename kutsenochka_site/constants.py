@@ -12,6 +12,8 @@ MASTERCLASS_3 = 'Portrait with markers'
 MASTERCLASS_4 = 'Animals with pastel'
 MASTERCLASS_5 = 'Architecture with pen'
 MASTERCLASS_6 = 'Nature with pastel'
+ARE_YOU_SURE = 'Are you sure that you want to delete the course?'
+DELETED = 'The masterclass was deleted'
 
 # create_course(datetime(2020, 1, 20, 20), 'Animals with markers', 'Description of the masterclass Animals with markers')
 # create_course(datetime(2020, 1, 26, 19), 'Food with markers', 'Description of the masterclass Food with markers')

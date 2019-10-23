@@ -132,7 +132,8 @@ def enrollment():
 
 @app.route('/delete/<int:user_course_id>')
 def delete(user_course_id):
-    enrollment_to_delete = Enrollment.query.filter_by(course_id=user_course_id).filter_by(user_id=session['id']).first()
+    enrollment_to_delete = \
+        Enrollment.query.filter_by(course_id=user_course_id).filter_by(user_id=session['id']).first()
     try:
         db.session.delete(enrollment_to_delete)
         db.session.commit()

@@ -2,6 +2,7 @@
 
 {% block body %}
 
+
 <body>
 <header class="container">
     <div class="row">
@@ -19,35 +20,71 @@
 
 <section class="container">
     <h1 id="greating">Nice to meet you, {{ name }}!</h1>
+
+    <!-- Left side -->
     {% if courses|length < 1 %}
     <h3 style="text-align: center" id="no_classes">There are no masterclasses to enroll :( New masterclasses coming soon!</h3>
     {% else %}
     <div class="row">
-        <div class="col-sm-4">
+        <div class="col-sm-6">
             {% if user_courses|length > 0 %}
             <h3 id="enrollment">You are already enrolled for:</h3>
             {% for user_course in user_courses %}
-                <a href="/delete/{{user_course.course.id}}" id="user_courses_names">{{ user_course.course.name }}</a>
-                <br>
+            <div class="row">
+                <div class="col-sm-5">
+                <h3 id="user_courses_names">{{ user_course.course.name }}</h3>
+                </div>
+                <div class="col-sm-6">
+                <!-- Modal trigger-->
+                <a class="btn btn-primary" id="btn" data-toggle="modal"
+                   data-target="#modal_delete_course{{ user_course.course.id }}">Delete</a>
+                </div>
+                <div id="modal_delete_course{{user_course.course.id }}" class="modal fade" role="dialog">
+                    <div class="modal-dialog modal-sm">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Confirmation</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>Are you sure that you want to delete the course "{{ user_course.course.name }}"?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="/delete/{{ user_course.course.id }}"><button type="button" class="btn btn-primary" id="btn3">Yes</button></a>
+                                <button type="button" class="btn btn-primary" id="btn4" data-dismiss="modal">No</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             {% endfor %}
-            <h3 id="cancel">click on masterclass name to cancel enrollment</h3>
             {% else %}
             <h3 id="not_enrolled">You are not enrolled yet)
                 <br>
                 Don't miss your chance to have some fun!</h3>
             {% endif %}
         </div>
-        <div class="col-sm-8">
+
+        <!-- Right side -->
+        <div class="col-sm-6">
             <h3 id="request_enrollment">Please, choose masterclasses to enroll:</h3>
             <div class="form" id="form_enrollment">
                 <form action="/enrollment/" method="POST">
                 {% for course in courses %}
-                    <input type="checkbox" name="{{ course.name }}" id={{ course.id }}>
-                    <label for={{ course.id }}>{{ course.name }}   {{ course.date_of_event }}</label>
-                    <br>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <input type="checkbox" name="{{ course.name }}" id={{ course.id }}>
+                            <label for={{ course.id }}>{{ course.name }}</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <label for={{ course.id }}>{{ course.date_of_event }}</label>
+                            <br>
+                        </div>
+                    </div>
                 {% endfor %}
                 <br>
-                <input type="submit" id="submit" value="Submit">
+                <input type="submit" id="submit" value="Enroll">
                 </form>
              </div>
         </div>
@@ -57,3 +94,4 @@
 </body>
 
 {% endblock %}
+
