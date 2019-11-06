@@ -143,17 +143,6 @@ def dep_session(id):
     return redirect('/employees/')
 
 
-def create_employee(name, phone, email, department_id):
-    if name == '' or email == '' or department_id == '' or not phone_number_valid(phone):
-        return constants.MISSED_REQUIREMENTS
-    new_employee = Employee(name=name, phone=phone, email=email, department_id=department_id)
-    try:
-        db.session.add(new_employee)
-        db.session.commit()
-    except:
-        return constants.WRONG_ADDING
-
-
 def phone_number_valid(number):
     try:
         if len(str(number)) == 9 and number[0] != '0' and int(number):
