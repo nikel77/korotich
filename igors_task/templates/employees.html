@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Employees of department</title>
+{% endblock %}
+
+
+{% block body %}
+<div class="content">
+    <h1 style="text-align: center">Employees list of {{ current_department_name }} department</h1>
+    {% if employees|length < 1 %}
+    <h4 style="text-align: center">There are no employees at the department!</h4>
+    {% else %}
+    <table>
+        <tr>
+            <th>Date of adding</th>
+            <th>Name</th>
+            <th>Phone number</th>
+            <th>e-mail</th>
+            <th>Action</th>
+        </tr>
+        {% for employee in employees %}
+        <tr>
+            <td>{{ employee.date_created.date() }}</td>
+            <td>{{ employee.name }}</td>
+            <td>{{ employee.phone }}</td>
+            <td>{{ employee.email }}</td>
+<!--            <td>{{ employee.department_id }}</td>-->
+            <td>
+                <a href="/delete_employee/{{employee.id}}">Delete</a>
+                <br>
+                <a href="/update_employee/{{employee.id}}">Update</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+    <h3>To add new employee fill in the form below:</h3>
+    <div class="form">
+        <form action="/employees/" method="POST">
+            <input type="text" placeholder="First and Last Names" name="name" id="name">
+            <input type="text" placeholder="Phone, 9 digits started not 0 (ex. 503431234)" name="phone" id="phone">
+            <input type="email" placeholder="e-mail" name="email" id="email">
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</div>
+{% endblock %}

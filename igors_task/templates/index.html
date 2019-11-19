@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <h1 style="text-align: center">List of departments</h1>
+    {% if departments|length < 1 %}
+    <h4 style="text-align: center">There are no departments at the company. Create one below!</h4>
+    {% else %}
+    <table>
+        <tr>
+            <th>Added</th>
+            <th>Name of department</th>
+            <th>Action</th>
+        </tr>
+        {% for department in departments %}
+        <tr>
+            <td>{{ department.date_created.date() }}</td>
+            <td>{{ department.name }}</td>
+            <td>
+                <a href="/delete/{{department.id}}">Delete</a>
+                <br>
+                <a href="/update/{{department.id}}">Update</a>
+                <br>
+                <a href="/dep_session/{{department.id}}">Employees</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+    <h3>To add new department fill in the form below:</h3>
+    <div class="form">
+        <form action="/" method="POST">
+            <input type="text" name="department_name" id="department_name">
+            <input type="submit" value="Add Department">
+        </form>
+    </div>
+</div>
+{% endblock %}
