@@ -72,3 +72,63 @@ test_str_three = """key 1
         key22 value22;
     }
 """
+
+
+def parse_one(test_data):
+    result = {}
+    stack = []
+    current_name = ''
+
+    for line in test_data.splitlines():
+        line_splitted = line.strip().split()
+        line_key = line_splitted[0]
+
+        if '{' in line:
+            continue
+
+        if '}' in line:
+            if len(stack) == 1:
+                result.update(stack[0])
+            else:
+                key_to_append = list(stack[-2].keys())[0]
+                stack[-2][key_to_append].update(stack[-1])
+                current_name = key_to_append
+            stack.pop()
+            continue
+
+        if not line.endswith(';'):
+            current_name = line.strip()
+            stack.append({current_name: {}})
+            continue
+
+        stack[-1][current_name][line_key] = line_splitted[1].strip(';')
+    return result
+
+
+def parse_two(config):
+    result = {}
+    stack = [result]
+    lines = config.splitlines()
+    block_name = ''
+
+    for line in lines:
+        line = line.strip()
+        if '{' in line:
+            current_block = stack[-1]
+            new_block = current_block[block_name] = {}
+            stack.append(new_block)
+            continue
+
+        if '}' in line:
+            stack.pop()
+            continue
+
+        if ';' not in line:
+            block_name = line
+            continue
+
+        key, value = line.strip(';').split(' ')
+        current_block = stack[-1]
+        current_block[key] = value
+
+    return result
