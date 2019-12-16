@@ -1,4 +1,4 @@
-body, head, {
+body, head {
     margin: auto;
     font-family: sans-serif;
     }
@@ -6,9 +6,8 @@ body, head, {
 table, th, td {
     border: 1px solid;
     margin: auto;
-
-
 }
+
 td {
     text-align: center;
     padding: 5px;
@@ -26,3 +25,7 @@ h3 {
 #name, #phone, #email, #department_name {
     width: 22%;
 }
+
+.red {
+    color: red;
+    }

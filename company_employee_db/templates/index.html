@@ -8,7 +8,7 @@
 <div class="content">
     <h1 style="text-align: center">List of departments</h1>
     {% if departments|length < 1 %}
-    <h4 style="text-align: center">There are no departments at the company. Create one below!</h4>
+    <h1 style="text-align: center">There are no departments at the company. Create one below!</h1>
     {% else %}
     <table>
         <tr>
@@ -17,13 +17,13 @@
             <th>Action</th>
         </tr>
         {% for department in departments %}
-        <tr>
+        <tr class="red">
             <td>{{ department.date_created.date() }}</td>
             <td>{{ department.name }}</td>
             <td>
-                <a href="/delete/{{department.id}}">Delete</a>
+                <a href="/delete_department/{{department.id}}" class="red">Delete</a>
                 <br>
-                <a href="/update/{{department.id}}">Update</a>
+                <a href="/update_department/{{department.id}}">Update</a>
                 <br>
                 <a href="/dep_session/{{department.id}}">Employees</a>
             </td>
@@ -34,7 +34,7 @@
     <h3>To add new department fill in the form below:</h3>
     <div class="form">
         <form action="/" method="POST">
-            <input type="text" name="department_name" id="department_name">
+            <input type="text" placeholder="Department name" name="department_name" id="department_name">
             <input type="submit" value="Add Department">
         </form>
     </div>

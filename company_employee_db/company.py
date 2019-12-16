@@ -51,8 +51,8 @@ def index():
     return render_template('index.html', departments=departments)
 
 
-@app.route('/delete/<int:id>')
-def delete(id):
+@app.route('/delete_department/<int:id>')
+def delete_department(id):
     department_to_delete = Department.query.get_or_404(id)
 
     try:
@@ -77,8 +77,8 @@ def delete_employee(id):
         return constants.WRONG_DELETING
 
 
-@app.route('/update/<int:id>', methods=['GET', 'POST'])
-def update(id):
+@app.route('/update_department/<int:id>', methods=['GET', 'POST'])
+def update_department(id):
     department = Department.query.get_or_404(id)
 
     if request.method == 'POST':
@@ -91,7 +91,7 @@ def update(id):
             return constants.WRONG_UPDATING1
 
     else:
-        return render_template('update.html', department=department)
+        return render_template('update_department.html', department=department)
 
 
 @app.route('/update_employee/<int:id>', methods=['GET', 'POST'])
@@ -131,10 +131,35 @@ def employees():
         except:
             return constants.WRONG_ADDING2
 
+    if department_id == 0:
+        unemployed_people = Employee.query.filter_by(department_id=None).all()
+        return render_template('unemployed.html', unemployed_people=unemployed_people)
+    
     department_employees = Employee.query.filter_by(department_id=department_id).all()
     department_name = Department.query.filter_by(id=department_id).first().name
     return render_template('employees.html', employees=department_employees, current_department_id=department_id,
                            current_department_name=department_name)
+
+
+@app.route('/where_to_employ/<int:id>')
+def where_to_employ(id):
+    session['employee_id'] = id
+    employee = Employee.query.get_or_404(id)
+    departments = Department.query.order_by(Department.date_created).all()
+    return render_template('where_to_employ.html', departments=departments, employee=employee)
+
+
+@app.route('/to_employ/<int:id>')
+def to_employ(id):
+    employee_id = session['employee_id']
+    employee = Employee.query.get_or_404(employee_id)
+    employee.department_id = id
+    employee.date_created = datetime.utcnow()
+    try:
+        db.session.commit()
+        return redirect('/employees/')
+    except:
+        return constants.WRONG_UPDATING
 
 
 @app.route('/dep_session/<int:id>')
