@@ -1,1 +1,1 @@
-There are some projects created by Kostyantyn Kutsenko.
+This repository contains code authored by Kostyantyn Kutsenko.
