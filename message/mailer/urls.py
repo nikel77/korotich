@@ -5,8 +5,8 @@ from .views import MessageView, MessageViewUser, MessageViewUnreadUser, MessageV
 app_name = "mailer"
 
 urlpatterns = [
-    path('messages/', MessageView.as_view()),
-    path('messages/<int:user_id>/', MessageViewUser.as_view()),
-    path('messages/unread/<int:user_id>/', MessageViewUnreadUser.as_view()),
-    path('messages/message/<int:message_id>/', MessageViewMessage.as_view()),
+    path('messages', MessageView.as_view()),
+    path('users/<int:user_id>/messages', MessageViewUser.as_view()),
+    path('users/<int:user_id>/messages/unread', MessageViewUnreadUser.as_view()),
+    path('messages/<int:message_id>', MessageViewMessage.as_view()),
     ]
