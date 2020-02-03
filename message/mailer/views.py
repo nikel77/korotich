@@ -15,7 +15,7 @@ class MessageView(APIView):
             if is_user_valid(message['receiver']) and is_user_valid(message['sender_id']):
                 message_saved = serializer.save()
             else:
-                return Response({"user id is not valid": 400})
+                return Response('please provide valid id', status=status.HTTP_400_BAD_REQUEST)
         return Response({"id": message_saved.id})
 
 
