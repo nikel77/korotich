@@ -6,4 +6,7 @@ colors.scheme.xml
 ide.general.xml
 /codestyles
 *.xml
-
+__pycache__/*
+message/message/__pycache__/*
+message/mailer/__pycache__/*
+.gitignore
