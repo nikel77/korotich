@@ -5,47 +5,87 @@ from rest_framework.generics import get_object_or_404
 
 from .models import Message, User
 from .serializers import MessageSerializerGet, MessageSerializerPost
+from django.contrib.auth import authenticate, login, logout
+
+
+class LoginView(APIView):
+    def post(self, request):
+        form = request.data.get('login_form')
+        try:
+            user = authenticate(request, username=form['username'], password=form['password'])
+            login(request, user)
+            current_user = request.user
+        except:
+            return Response('please provide valid username and password', status=status.HTTP_400_BAD_REQUEST)
+        return Response({'logged in user': current_user.id})
+
+
+class LogoutView(APIView):
+    def get(self, request):
+        current_user = request.user
+        logout(request)
+        return Response({'logged out user': current_user.id})
 
 
 class MessageView(APIView):
     def post(self, request):
         message = request.data.get('message')
+        current_user = request.user
+        if not current_user.id:
+            return Response('Log in please', status=status.HTTP_400_BAD_REQUEST)
+        message['sender_id'] = current_user.id
         serializer = MessageSerializerPost(data=message)
         if serializer.is_valid(raise_exception=True):
-            if is_user_valid(message['receiver']) and is_user_valid(message['sender_id']):
+            if is_user_valid(message['receiver']):
                 message_saved = serializer.save()
             else:
-                return Response('please provide valid id', status=status.HTTP_400_BAD_REQUEST)
+                return Response('please provide valid receiver', status=status.HTTP_400_BAD_REQUEST)
         return Response({"id": message_saved.id})
 
-
-class MessageViewUser(APIView):
-    def get(self, request, user_id):
-        messages = Message.objects.all().filter(receiver=user_id)
+    def get(self, request):
+        current_user = request.user
+        if not current_user.id:
+            return Response('Log in please', status=status.HTTP_400_BAD_REQUEST)
+        messages = Message.objects.all().filter(receiver=current_user.id)
         serializer = MessageSerializerGet(messages, many=True)
-        return Response({'user_id': user_id, 'messages': serializer.data})
+        return Response({'messages': serializer.data})
 
 
-class MessageViewUnreadUser(APIView):
-    def get(self, request, user_id):
-        messages = Message.objects.all().filter(receiver=user_id, is_read=False)
+class MessageViewUnread(APIView):
+    def get(self, request):
+        current_user = request.user
+        if not current_user.id:
+            return Response('Log in please', status=status.HTTP_400_BAD_REQUEST)
+        messages = Message.objects.all().filter(receiver=current_user.id, is_read=False)
         serializer = MessageSerializerGet(messages, many=True)
-        return Response({"messages": serializer.data})
+        return Response({'messages': serializer.data})
 
 
 class MessageViewMessage(APIView):
-    def delete(self, request, message_id):
-        message = get_object_or_404(Message.objects.all(), id=message_id)
-        message.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
     def get(self, request, message_id):
         message = Message.objects.all().filter(id=message_id)
         serializer = MessageSerializerGet(message, many=True)
         saved_message = get_object_or_404(Message.objects.all(), id=message_id)
-        saved_message.is_read = True
-        saved_message.save()
-        return Response({'message': serializer.data})
+        current_user = request.user
+        if not current_user.id:
+            return Response('Log in please', status=status.HTTP_400_BAD_REQUEST)
+        if saved_message.receiver == current_user.id:
+            saved_message.is_read = True
+            saved_message.save()
+            return Response({'message': serializer.data})
+        else:
+            return Response('You have no rights to read this message', status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, message_id):
+        current_user = request.user
+        if not current_user.id:
+            return Response('Log in please', status=status.HTTP_400_BAD_REQUEST)
+        message = get_object_or_404(Message.objects.all(), id=message_id)
+        if message.receiver == current_user.id or message.sender_id == current_user.id:
+            message.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response('You have no rights to delete this message', status=status.HTTP_400_BAD_REQUEST)
 
 
 def is_user_valid(user_id):
@@ -54,5 +94,4 @@ def is_user_valid(user_id):
         return True
     else:
         return False
-
 
