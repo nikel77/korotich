@@ -77,7 +77,7 @@ class MessageViewUnread(APIView):
 
 class MessageViewMessage(APIView):
     def get(self, request, message_id):
-        message = Message.objects.get(pk=message_id)
+        message = get_object_or_404(Message.objects.all(), id=message_id)
         serializer = MessageSerializerGet(message)
         current_user = request.user
         if not current_user.id:
