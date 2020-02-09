@@ -6,6 +6,7 @@ from rest_framework.generics import get_object_or_404
 from .models import Message, User
 from .serializers import UserSerializerPost, MessageSerializerGet, MessageSerializerPost
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.hashers import make_password
 
 
 class SignupView(APIView):
@@ -14,10 +15,10 @@ class SignupView(APIView):
         try:
             User.objects.get(username=req_data['username'])
         except:
+            req_data['password'] = make_password(req_data['password'])
             serializer = UserSerializerPost(data=req_data)
             if serializer.is_valid(raise_exception=True):
-                serializer.save()
-            signed_user = User.objects.get(username=req_data['username'])
+                signed_user = serializer.save()
             return Response({'user_id': signed_user.id})
         return Response('username already exists', status=status.HTTP_403_FORBIDDEN)
 
